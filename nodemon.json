@@ -1,0 +1,5 @@
+{
+  "events": {
+    "start": "echo -ne '\\033c'"
+  }
+}
