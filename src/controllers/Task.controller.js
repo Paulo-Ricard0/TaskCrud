@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import { NotFoundError } from "../helpers/api-errors.js";
 import { Task } from "../models/Task.js";
 
@@ -8,8 +9,23 @@ class TaskController {
   }
 
   async findAll(req, res) {
-    let { limit } = req.query;
-    const TaskList = await Task.findAll({ limit });
+    let { limit, title } = req.query;
+    const options = { limit };
+
+    if (title) {
+      options.where = {
+        title: {
+          [Op.like]: `%${title}%`,
+        },
+      };
+    }
+
+    const TaskList = await Task.findAll(options);
+
+    if (!TaskList) {
+      throw new NotFoundError("Tarefas não encontradas.");
+    }
+
     return res.json(TaskList);
   }
 
