@@ -33,7 +33,7 @@ class UserController {
     }
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_PASS, {
-      expiresIn: "1d",
+      expiresIn: "40d",
     });
 
     const { password: _, ...userLogin } = user.get({ plain: true });
