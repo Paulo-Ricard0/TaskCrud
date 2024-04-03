@@ -1,6 +1,7 @@
 import "express-async-errors";
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import { sequelize } from "./database.js";
 import "./models/Task.js";
 import "./models/User.js";
@@ -17,6 +18,7 @@ sequelize
     console.log("Conexão estabelecida com sucesso!.");
     const app = express();
 
+    app.use(cors({ origin: "*" }));
     app.use(express.json());
     app.use(logRoutes);
     app.use("/task", taskRoutes);
