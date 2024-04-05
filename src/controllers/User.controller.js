@@ -43,6 +43,11 @@ class UserController {
   async getProfile(req, res) {
     return res.json(req.user);
   }
+
+  async uptime(req, res) {
+    res.set("Content-Type", "text/plain");
+    res.sendStatus(200);
+  }
 }
 
 export default new UserController();
